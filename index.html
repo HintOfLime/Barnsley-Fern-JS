@@ -1,0 +1,264 @@
+<html>
+    <body onresize="updateSettings(true)">
+        <div class="row">
+                <div class="column">
+                    <canvas id="c1">
+                </div>
+                <div class="column">
+                    <b>Speed:</b>
+                    <input type="range" id="s" min="1" max="10000" step="1" value="1" oninput="updateSettings(false)">
+                    <a><br/><br/></a>
+
+                    <b>Zoom:</b>
+                    <input type="range" id="z" min="1" max="10" step="0.01" value="1" oninput="updateSettings(true)">
+                    <a><br/></a>
+
+                    <b>X Offset:</b>
+                    <input type="range" id="xo" min="-10" max="10" step="0.001" value="0" oninput="updateSettings(true)">
+                    <a><br/></a>
+
+                    <b>Y Offset:</b>
+                    <input type="range" id="yo" min="-10" max="10" step="0.001" value="0" oninput="updateSettings(true)">
+                    <a><br/><br/></a>
+
+                    <b>Probabilities:</b>
+                    <a><br/>These are the probabilities of the corresponding transfromations occuring</a>
+                    <a><br/>P0</a>
+                    <input type="number" id="p0" min="0" max="1" step="0.01" value="0.01" oninput="updateSettings(true)">
+                    <a><br/>P1</a>
+                    <input type="number" id="p1" min="0" max="1" step="0.01" value="0.85" oninput="updateSettings(true)">
+                    <a><br/>P2</a>
+                    <input type="number" id="p2" min="0" max="1" step="0.01" value="0.07" oninput="updateSettings(true)">
+                    <a><br/>P3</a>
+                    <input type="number" id="p3" min="0" max="1" step="0.01" value="0.07" oninput="updateSettings(true)">
+                    <a id="pError" style="visibility:hidden; color:red"><br/>Probabilities should sum to less than or equal to one</a>
+                    <a><br/></a>
+
+                    <b>Transforms:</b>
+                    <a><br/>T0 X:</a>
+                    <a>(X*</a>
+                    <input type="number" id="Tx0x" step="0.01" value="0" oninput="updateSettings(true)">
+                    <a>)+(Y*</a>
+                    <input type="number" id="Tx0y" step="0.01" value="0" oninput="updateSettings(true)">
+                    <a>)+C</a>
+                    <input type="number" id="Tx0c" step="0.01" value="0" oninput="updateSettings(true)">
+                    <a><br/>T0 Y:</a>
+                    <a>(X*</a>
+                    <input type="number" id="Ty0x" step="0.01" value="0" oninput="updateSettings(true)">
+                    <a>)+(Y*</a>
+                    <input type="number" id="Ty0y" step="0.01" value="0.16" oninput="updateSettings(true)">
+                    <a>)+C</a>
+                    <input type="number" id="Ty0c" step="0.01" value="0" oninput="updateSettings(true)">
+
+                    <a><br/><br/>T1 X:</a>
+                    <a>(X*</a>
+                    <input type="number" id="Tx1x" step="0.01" value="0.85" oninput="updateSettings(true)">
+                    <a>)+(Y*</a>
+                    <input type="number" id="Tx1y" step="0.01" value="0.04" oninput="updateSettings(true)">
+                    <a>)+C</a>
+                    <input type="number" id="Tx1c" step="0.01" value="0" oninput="updateSettings(true)">
+                    <a><br/>T1 Y:</a>
+                    <a>(X*</a>
+                    <input type="number" id="Ty1x" step="0.01" value="-0.04" oninput="updateSettings(true)">
+                    <a>)+(Y*</a>
+                    <input type="number" id="Ty1y" step="0.01" value="0.85" oninput="updateSettings(true)">
+                    <a>)+C</a>
+                    <input type="number" id="Ty1c" step="0.01" value="1.6" oninput="updateSettings(true)">
+                    
+                    <a><br/><br/>T2 X:</a>
+                    <a>(X*</a>
+                    <input type="number" id="Tx2x" step="0.01" value="0.2" oninput="updateSettings(true)">
+                    <a>)+(Y*</a>
+                    <input type="number" id="Tx2y" step="0.01" value="-0.26" oninput="updateSettings(true)">
+                    <a>)+C</a>
+                    <input type="number" id="Tx2c" step="0.01" value="0" oninput="updateSettings(true)">
+                    <a><br/>T2 Y:</a>
+                    <a>(X*</a>
+                    <input type="number" id="Ty2x" step="0.01" value="0.23" oninput="updateSettings(true)">
+                    <a>)+(Y*</a>
+                    <input type="number" id="Ty2y" step="0.01" value="0.22" oninput="updateSettings(true)">
+                    <a>)+C</a>
+                    <input type="number" id="Ty2c" step="0.01" value="1.6" oninput="updateSettings(true)">
+
+                    <a><br/><br/>T3 X:</a>
+                    <a>(X*</a>
+                    <input type="number" id="Tx3x" step="0.01" value="-0.15" oninput="updateSettings(true)">
+                    <a>)+(Y*</a>
+                    <input type="number" id="Tx3y" step="0.01" value="0.28" oninput="updateSettings(true)">
+                    <a>)+C</a>
+                    <input type="number" id="Tx3c" step="0.01" value="0" oninput="updateSettings(true)">
+                    <a><br/>T3 Y:</a>
+                    <a>(X*</a>
+                    <input type="number" id="Ty3x" step="0.01" value="0.26" oninput="updateSettings(true)">
+                    <a>)+(Y*</a>
+                    <input type="number" id="Ty3y" step="0.01" value="0.24" oninput="updateSettings(true)">
+                    <a>)+C</a>
+                    <input type="number" id="Ty3c" step="0.01" value="0.44" oninput="updateSettings(true)">
+                    <a><br/><br/><br/></a>
+
+                    <b>Resolution:</b>
+                    <input type="number" id="r" min="0" step="1" value="1000" onchange="updateSettings(true)">
+                    <a><br/></a>
+
+                    <b>Fancy color:</b>
+                    <input type="checkbox" id="c" onchange="updateSettings(true)">
+                    <a><br/></a>
+
+                    <b>Color steps:</b>
+                    <input type="number" id="cs" min="0" step="1" value="200" onchange="updateSettings(false)">
+                    <a><br/></a>
+                </div>
+        </div>
+    </body>
+</html>
+
+<style>
+    .column {
+        float: left;
+        width: 50%;
+    }
+
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
+
+<script>
+    var WIDTH, HEIGHT, SCALE, SPEED, FANCY_COLOR, COLOR_STEPS;
+    var xOffset, yOffset
+    var p0, p1, p2, p3;
+    var tx0x, tx0y, tx0c, tx1x, tx1y, tx1c, tx2x, tx2y, tx2c, tx3x, tx3y, tx3c
+    var ty0x, ty0y, ty0c, ty1x, ty1y, ty1c, ty2x, ty2y, ty2c, ty3x, ty3y, ty3c
+
+
+    var c = document.getElementById("c1");
+    var ctx = c.getContext("2d");
+
+    var colorData;
+    var x, y;
+
+    updateSettings(true);
+
+    function getColor (i) {
+        theta = i*(1/COLOR_STEPS)*Math.PI*2
+        phaseShift = Math.PI*(2/3)
+        r = Math.max(Math.sin(theta+(2*phaseShift)),0)*255;
+        g = Math.max(Math.sin(theta),0)*255;
+        b = Math.max(Math.sin(theta+phaseShift),0)*255;
+        return "rgba("+r+", "+g+", "+b+", 255)";
+    }
+
+    function init () {
+        c.width = Math.min(document.body.clientWidth/2, document.body.clientHeight)-20;
+        c.height = c.width;
+        scale = Math.min(c.width, c.height) / Math.max(WIDTH, HEIGHT);
+
+        colorData = new Array(HEIGHT);
+        for (var j = 0; j < HEIGHT; j++) {
+            colorData[j] = new Array(WIDTH);
+            for (var i = 0; i < WIDTH; i++) {
+                colorData[j][i] = 0;
+            }
+        }
+
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(0, 0, c.width, c.height);
+
+        x = 0;
+        y = 0;
+    }
+
+    function updateSettings (reset) {
+        SPEED = parseFloat(document.getElementById("s").value);
+        WIDTH = parseInt(document.getElementById("r").value);
+        HEIGHT = parseInt(document.getElementById("r").value);
+        FANCY_COLOR = document.getElementById("c").checked;
+        COLOR_STEPS = parseInt(document.getElementById("cs").value);
+        p0 = parseFloat(document.getElementById("p0").value);
+        p1 = parseFloat(document.getElementById("p1").value);
+        p2 = parseFloat(document.getElementById("p2").value);
+        p3 = parseFloat(document.getElementById("p3").value);
+        if ((p0+p1+p2+p3) > 1) {document.getElementById("pError").style.visibility = "visible";}
+        else {document.getElementById("pError").style.visibility = "hidden";}
+
+        xOffset = parseFloat(document.getElementById("xo").value);
+        yOffset = parseFloat(document.getElementById("yo").value);
+        zoom = parseFloat(document.getElementById("z").value);
+
+        tx0x = parseFloat(document.getElementById("Tx0x").value);
+        tx0y = parseFloat(document.getElementById("Tx0y").value);
+        tx0c = parseFloat(document.getElementById("Tx0c").value);
+        ty0x = parseFloat(document.getElementById("Ty0x").value);
+        ty0y = parseFloat(document.getElementById("Ty0y").value);
+        ty0c = parseFloat(document.getElementById("Ty0c").value);
+
+        tx1x = parseFloat(document.getElementById("Tx1x").value);
+        tx1y = parseFloat(document.getElementById("Tx1y").value);
+        tx1c = parseFloat(document.getElementById("Tx1c").value);
+        ty1x = parseFloat(document.getElementById("Ty1x").value);
+        ty1y = parseFloat(document.getElementById("Ty1y").value);
+        ty1c = parseFloat(document.getElementById("Ty1c").value);
+
+        tx2x = parseFloat(document.getElementById("Tx2x").value);
+        tx2y = parseFloat(document.getElementById("Tx2y").value);
+        tx2c = parseFloat(document.getElementById("Tx2c").value);
+        ty2x = parseFloat(document.getElementById("Ty2x").value);
+        ty2y = parseFloat(document.getElementById("Ty2y").value);
+        ty2c = parseFloat(document.getElementById("Ty2c").value);
+
+        tx3x = parseFloat(document.getElementById("Tx3x").value);
+        tx3y = parseFloat(document.getElementById("Tx3y").value);
+        tx3c = parseFloat(document.getElementById("Tx3c").value);
+        ty3x = parseFloat(document.getElementById("Ty3x").value);
+        ty3y = parseFloat(document.getElementById("Ty3y").value);
+        ty3c = parseFloat(document.getElementById("Ty3c").value);
+
+        setInterval(draw, 100000);
+        if (reset == true) {
+            init();
+        }
+
+        POINTS_PER_FRAME = 1;
+        if (1000/SPEED < 10) {
+            POINTS_PER_FRAME = SPEED/100;
+        }
+        console.log("Speed settings: " + (1000/SPEED) + ", " + POINTS_PER_FRAME);
+        setInterval(draw, Math.min(1000/SPEED, 10));
+    }
+
+    function draw () {
+        for (var i = 0; i < POINTS_PER_FRAME; i++) {
+            var rand = Math.random()
+            oldX = x;
+            oldY = y;
+            console.log(p0+" "+p1+" "+p2)
+            switch (true) {
+                case rand <= p0:
+                    x = (oldX*tx0x) + (oldY*tx0y) + tx0c;
+                    y = (oldX*ty0x) + (oldY*ty0y) + ty0c;
+                    break;
+                case rand <= p1+p0:
+                    x = (oldX*tx1x) + (oldY*tx1y) + tx1c;
+                    y = (oldX*ty1x) + (oldY*ty1y) + ty1c;
+                    break;
+                case rand <= p2+p1+p0:
+                    x = (oldX*tx2x) + (oldY*tx2y) + tx2c;
+                    y = (oldX*ty2x) + (oldY*ty2y) + ty2c;
+                    break;
+                case rand <= p3+p2+p1+p0:
+                    x = (oldX*tx3x) + (oldY*tx3y) + tx3c;
+                    y = (oldX*ty3x) + (oldY*ty3y) + ty3c;
+                    break;
+            }
+            if (FANCY_COLOR) {
+                colorData[Math.ceil(y)][Math.ceil(x)] += 1;
+                ctx.fillStyle = getColor(colorData[Math.ceil(y)][Math.ceil(x)]);
+            } else {
+                ctx.fillStyle = "rgba(0, 0, 0, 255)";
+            }
+            ctx.fillRect((Math.floor(((x+xOffset)*zoom*(WIDTH/10.6))+(WIDTH/2)))*scale, (Math.floor(HEIGHT-((y+yOffset)*zoom*(HEIGHT/10.6))))*scale, scale, scale);
+        }
+    }
+</script>
